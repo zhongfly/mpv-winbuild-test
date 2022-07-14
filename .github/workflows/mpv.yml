@@ -97,8 +97,11 @@ jobs:
         run: |
           sudo echo -e "[multilib]\nInclude = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf
           sudo pacman -Syu --noconfirm
-          sudo pacman -S --noconfirm --needed git gyp mercurial subversion ninja cmake ragel yasm nasm asciidoc enca gperf unzip p7zip gcc-multilib clang python-pip curl lib32-glib2 wget
+          sudo pacman -S --noconfirm --needed git gyp mercurial subversion ninja cmake ragel yasm nasm asciidoc enca gperf unzip gcc-multilib clang python-pip curl lib32-glib2 wget xz
           pip3 install rst2pdf mako https://github.com/mesonbuild/meson/archive/refs/heads/master.zip
+          mkdir -p /home/opt/7zip
+          wget -qO - https://www.7-zip.org/a/7z2200-linux-x64.tar.xz | tar -xJf - -C /home/opt/7zip 7zzs
+          sudo ln -s /home/opt/7zip/7zzs /usr/bin/7z
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --global pull.rebase true
