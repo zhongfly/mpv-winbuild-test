@@ -171,7 +171,9 @@ jobs:
       - name: Collect error logs
         if: ${{ always() }}
         run: |
-          sudo 7z a logs.7z -ir!mpv-winbuild-cmake/build${{ matrix.bit }}/*.log
+          #mkdir -p logs
+          #cp -fr $(find build$BIT -type f -iname "*-*.log" -or -wholename "*/ffbuild/config.log") logs || true
+          sudo 7z a logs.7z $(find mpv-winbuild-cmake/build${{ matrix.bit }} -type f -iname "*-*.log" -or -wholename "*/ffbuild/config.log")
       - name: upload error logs
         uses: actions/upload-artifact@v3
         if: ${{ always() }}
